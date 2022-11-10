@@ -1,62 +1,20 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css';
 import Image from 'next/image';
 import CreateNft from '../components/CreateNft';
 import GenerateImage from '../components/GenerateImage';
-import { useNetwork, useAccount } from 'wagmi';
-import setAllowList from '../lib/setAllowList';
-// import SetAllowList from '../lib/SetAllowList';
+import { useNetwork } from 'wagmi';
+import useTokenCheck from '../components/hooks/useTokenCheck';
 
 const Home: NextPage = () => {
   const [generatedImage, setGeneratedImage] = useState<any>(null);
   const { chain } = useNetwork();
-  const { address } = useAccount();
   const [connected, setConnected] = useState(false);
   const [allowed, setAllowed] = useState(false);
-  // const [message, setMessage] = useState('');
-  // const [collectors, setCollectors] = useState([]);
-  
 
-  // const displayMessage = useCallback(() => {
-  //   if (connected && allowed) {
-  //     setMessage('true')
-  //   }
-  //   else if (!connected && allowed) {
-  //     setMessage('Please connect your wallet to continue.')
-  //   } 
-  //   else if (connected && !allowed) {
-  //     setMessage('You must have a Mint Podcast Season 6 Listener Badge to continue.')
-  //   }
-  //   else setMessage('Please connect your wallet to continue.')
-  // }, [connected, allowed]);
-
-  // need collectors to load before the next if statement
-  // const checkAllowed = useCallback( () => {
-  //   setAllowList(setCollectors);
-  //   let lookUp:string = address || " ";
-  //   if (collectors.indexOf(lookUp) !== -1) {
-  //     setAllowed(true);
-  //   }
-  // }, [address, collectors])
-
-  // const checkAllowed = () => {
-  //   let collectors = setAllowList()
-    //   .then(() => {
-    //     if (collectors.indexOf(address) !== -1) {
-    //       setAllowed(true)
-    //     }
-    // })
-  //   console.log(allowed)
-  // }
-
-  // useEffect(() => {
-  //   chain && setConnected(true);
-  //   checkAllowed();
-  //   displayMessage();
-  //   console.log("connectd",connected, "allow",allowed)
-  // }, [chain, displayMessage, allowed, connected,])
+  useTokenCheck();
 
   return (
     <div className={`${styles.container} background`}>
