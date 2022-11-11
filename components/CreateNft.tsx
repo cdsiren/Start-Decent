@@ -169,8 +169,9 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
             <button className="w-full flex justify-center" type="button" onClick={() => deployFunction()}>
               <input type="submit" className="cursor-pointer tracking-widest font-[500] text-white bg-black px-4 py-1"/>
             </button>
-            <p className="italic text-xs pt-4">{showLink ? `Edition created! Paste this into the blockscanner of your chain of choice to verify ${link}` : 'be patient, wallet confimration can take a sec'}</p>
             {chain &&
+            <>
+            <div className="italic text-xs pt-4 text-center py-2">{showLink ? <a target="_blank" className="px-3 py-1 bg-indigo-500 text-white text-lg" href={`https://hq.decent.xyz/${chain.id}/Editions/${link}`} rel="noreferrer">View on Decent</a> : 'be patient, wallet & block confimration can take a sec'}</div>
             <a
               className="text-white mt-2"
               href={`https://twitter.com/intent/tweet?text=This NFT was made with AI by Decent x DALL·E 2 https://hq.decent.xyz/${chain.id}/Editions/${link}`}
@@ -181,6 +182,7 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
                 <Image src='/images/twitter.png' height={14} width={14} alt="twitter"/>
               </span>
             </a>
+            </>
             }
           </div>
         </div>
