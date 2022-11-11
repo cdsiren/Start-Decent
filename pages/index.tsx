@@ -52,7 +52,7 @@ const Home: NextPage = () => {
 
       <footer className='py-8 border-t border-white'>
         <div>
-        <p className='flex justify-center pb-4 text-base tracking-widest uppercase'>You&apos;re Now A Prompt Arist</p>
+        <p className='flex justify-center pb-4 text-base tracking-widest uppercase'>You&apos;re Now A Prompt Artist</p>
         <div className='flex items-center justify-center text-xl'>
           <a href="https://decent.xyz" target="_blank" rel="noopener noreferrer">
             <Image src='/images/icon2.png' height={24} width={24} alt='Decent 💪' />
