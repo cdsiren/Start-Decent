@@ -1,5 +1,6 @@
 import { DecentSDK, edition } from "@decent.xyz/sdk";
 import { useSigner } from "wagmi";
+import { ethers } from "ethers";
 
 const useTokenCheck = () => {
   const { data:signer } = useSigner();
@@ -9,9 +10,12 @@ const useTokenCheck = () => {
     if (!signer) {
       console.error("Please connect wallet.")
     } else {
-      const polygonSdk = new DecentSDK(137, signer);
+      const polygonProvider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_POLYGON_URL);
+      const polygonSdk = new DecentSDK(137, polygonProvider);
       const polygonBadge = "0x3d48cBB6653fbBa5B430cF6666c9C7bff6021E98";
-      const ethereumSdk = new DecentSDK(1, signer);
+
+      const ethProvider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_MAINNET_URL);
+      const ethereumSdk = new DecentSDK(1, ethProvider);
       const ethereumBadge = "0x1767739e7A1A2110C80EE898D9730D5d24c838b6";
 
       const checkPolygon = async () => {
