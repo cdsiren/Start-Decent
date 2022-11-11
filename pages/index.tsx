@@ -31,8 +31,8 @@ const Home: NextPage = () => {
           </h1>
       {!isApproved ?
           <div className='text-white text-center tracking-widest font-[300] uppercase'>
-            <p className="text-lg bg-black p-1">You need a pin!</p>
-            <p className="mt-8 bg-black p-1">Click the link below to claim your NFT</p>
+            <p className="text-lg bg-black p-1">Early access for Pin holders.  General access available 11/14/22.</p>
+            <p className="mt-8 bg-black p-1">Click the link below to claim your Pin</p>
             <p className="mt-8 bg-black p-1 text-green-100"><a target="_blank" href="https://adamlevy.xyz/vault-collect-ethereum-or-polygon" rel="noreferrer">Mint Season 6 Listener Pin</a></p>
           </div>
           :
