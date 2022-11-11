@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { DecentSDK, edition } from "@decent.xyz/sdk";
 import { useSigner } from "wagmi";
 import { ethers } from "ethers";
@@ -5,6 +6,8 @@ import { ethers } from "ethers";
 const useTokenCheck = () => {
   const { data:signer } = useSigner();
   // const address:string = signer && signer._address;
+
+  const [isApproved, setIsApproved] = useState(false);
 
   try {
     if (!signer) {
@@ -39,15 +42,14 @@ const useTokenCheck = () => {
       const checkAllowed = async () => {
         let polyCheck = await checkPolygon();
         let ethCheck = await checkEthereum();
-        if (polyCheck && ethCheck) {
-          return true
-        } else return false
-      } 
-      return checkAllowed();
+        setIsApproved(polyCheck && ethCheck);
+      }
     }
   } catch (error) {
     console.error(error)
   };
+
+  return isApproved;
 }
 
 export default useTokenCheck;

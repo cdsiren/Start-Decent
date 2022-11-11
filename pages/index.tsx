@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   const [connected, setConnected] = useState(false);
   const [allowed, setAllowed] = useState(false);
 
-  useTokenCheck();
+  const isApproved = useTokenCheck();
 
   return (
     <div className={`${styles.container} background`}>
@@ -27,23 +27,38 @@ const Home: NextPage = () => {
         <link rel="icon" href="/images/icon.png" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={`${styles.title} pt-16 text-black`}>
-          Create NFTs using DALL·E 2
-        </h1>
-        {/* {message === 'true' ? */}
-          <GenerateImage setGeneratedImage={setGeneratedImage} />
-          {/* : <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>{message}{connected && !allowed && <span> Claim on <a target="_blank" className='text-indigo-500 cursor-pointer'>here</a></span>}</p>
-        } */}
-        <div className='mt-8'>
-          {connected ?
+      {!isApproved &&
+        <main className={styles.main}>
+          <h1 className={`${styles.title} pt-16 text-black`}>
+            Create NFTs using DALL·E 2
+          </h1>
+          <div className='mt-8 text-black'>
+            <p class="text-2xl text-center">You need a pin!</p>
+            <p class="mt-8">Click the link below to claim your NFT</p>
+            <p class="mt-8"><a href="https://adamlevy.xyz/s6-pin-polygon">https://adamlevy.xyz/s6-pin-polygon</a></p>
+          </div>
+        </main>
+      }
 
-          generatedImage && <CreateNft generatedImage={generatedImage}/>
-          :
-          generatedImage && <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>Please Connect Your Wallet to Continue</p>
-          }
-        </div>
-      </main>
+      {isApproved &&
+        <main className={styles.main}>
+          <h1 className={`${styles.title} pt-16 text-black`}>
+            Create NFTs using DALL·E 2
+          </h1>
+          {/* {message === 'true' ? */}
+            <GenerateImage setGeneratedImage={setGeneratedImage} />
+            {/* : <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>{message}{connected && !allowed && <span> Claim on <a target="_blank" className='text-indigo-500 cursor-pointer'>here</a></span>}</p>
+          } */}
+          <div className='mt-8'>
+            {connected ?
+
+            generatedImage && <CreateNft generatedImage={generatedImage}/>
+            :
+            generatedImage && <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>Please Connect Your Wallet to Continue</p>
+            }
+          </div>
+        </main>
+      }
 
       <footer className='py-8 border-t border-white'>
         <div>
