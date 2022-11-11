@@ -21,9 +21,11 @@ const useTokenCheck = () => {
       const ethereumSdk = new DecentSDK(1, ethProvider);
       const ethereumBadge = "0x1767739e7A1A2110C80EE898D9730D5d24c838b6";
 
+      let account = signer.getBalance();
+
       const checkPolygon = async () => {
         const contract = await edition.getContract(polygonSdk, polygonBadge);
-        let balance = await contract.balanceOf("0x5D7370fCD6e446bbC14A64c1EFfe5FBB1c893232");
+        let balance = await contract.balanceOf(account);
         console.log("poly balance", balance);
         if (balance > 0) {
           return true
@@ -32,7 +34,7 @@ const useTokenCheck = () => {
 
       const checkEthereum = async () => {
         const contract = await edition.getContract(ethereumSdk, ethereumBadge);
-        let balance = await contract.balanceOf("0x5D7370fCD6e446bbC14A64c1EFfe5FBB1c893232");
+        let balance = await contract.balanceOf(account);
         console.log("eth balance", balance);
         if (balance > 0) {
           return true

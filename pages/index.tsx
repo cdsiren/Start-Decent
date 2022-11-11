@@ -25,20 +25,20 @@ const Home: NextPage = () => {
         <link rel="icon" href="/images/icon.png" />
       </Head>
 
-      {isApproved &&
+      {!isApproved &&
         <main className={styles.main}>
           <h1 className={`${styles.title} pt-16 text-black`}>
             Create NFTs using DALL·E 2
           </h1>
           <div className='mt-8 text-black'>
-            <p class="text-2xl text-center">You need a pin!</p>
-            <p class="mt-8">Click the link below to claim your NFT</p>
-            <p class="mt-8"><a href="https://adamlevy.xyz/s6-pin-polygon">https://adamlevy.xyz/s6-pin-polygon</a></p>
+            <p className="text-2xl text-center">You need a pin!</p>
+            <p className="mt-8">Click the link below to claim your NFT</p>
+            <p className="mt-8"><a href="https://adamlevy.xyz/s6-pin-polygon">https://adamlevy.xyz/s6-pin-polygon</a></p>
           </div>
         </main>
       }
 
-      {!isApproved &&
+      {isApproved &&
         <main className={styles.main}>
           <h1 className={`${styles.title} pt-16 text-black`}>
             Create NFTs using DALL·E 2

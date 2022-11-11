@@ -6,10 +6,9 @@ import { useSigner, useNetwork } from 'wagmi';
 import { ethers } from "ethers";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import getDeploymentMetadata from "../lib/getDeploymentMetadata";
 import InfoField from "./InfoField";
 import Image from "next/image";
-import { NFTStorage, File, Blob } from 'nft.storage'
+import { NFTStorage, Blob } from 'nft.storage'
 
 const schema = yup.object().shape({
   collectionName: yup.string()
@@ -51,24 +50,6 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
 
   const resetForm = () => {
     clearErrors();
-  }
-
-  const loadImage = () => {
-    const blob = generatedImage.blob();
-    const file = new File([blob], "image", { type: blob.type });
-    console.log("blob", blob, "file", file);
-    return file
-  }
-
-  const getMetadata = async () => {
-    const ipfsHash = ipfs.createMetadata({
-      image: loadImage(),
-      name: getValues("collectionName"),
-      description: "Created with the Decent Protocol and DALL·E 2",
-      title: getValues("collectionName"),
-    })
-    console.log("ipfs", ipfsHash)
-    return ipfsHash
   }
 
   const success = (nft:any) => {
