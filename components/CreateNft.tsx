@@ -8,7 +8,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InfoField from "./InfoField";
 import Image from "next/image";
-import { NFTStorage, Blob } from 'nft.storage'
+import { NFTStorage, Blob } from 'nft.storage';
+import getBlockscanner from "./hooks/getBlockscanner";
 
 const schema = yup.object().shape({
   collectionName: yup.string()
@@ -170,17 +171,6 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
               <input type="submit" className="cursor-pointer tracking-widest font-[500] text-white bg-black px-4 py-1"/>
             </button>
             <p className="italic text-xs pt-4">{showLink ? `Edition created! Paste this into the blockscanner of your chain of choice to verify ${link}` : 'be patient, wallet confimration can take a sec'}</p>
-
-            <a
-              className="text-white mt-2"
-              href={`https://twitter.com/intent/tweet?text=This NFT was made with AI by Decent x DALL·E 2`}
-              target="_blank"
-              rel="noreferrer">
-              <span className="flex items-center justify-center bg-black gap-2 px-1 tracking-widest font-[400]">
-                Share NFT
-                <Image src='/images/twitter.png' height={14} width={14} alt="twitter"/>
-              </span>
-            </a>
           </div>
         </div>
       </form>

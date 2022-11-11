@@ -25,38 +25,30 @@ const Home: NextPage = () => {
         <link rel="icon" href="/images/icon.png" />
       </Head>
 
-      {!isApproved &&
-        <main className={styles.main}>
+      <main className={styles.main}>
           <h1 className={`${styles.title} pt-16 text-black`}>
             Create NFTs using DALL·E 2
           </h1>
-          <div className='mt-8 text-black'>
-            <p className="text-2xl text-center">You need a pin!</p>
-            <p className="mt-8">Click the link below to claim your NFT</p>
-            <p className="mt-8"><a href="https://adamlevy.xyz/s6-pin-polygon">https://adamlevy.xyz/s6-pin-polygon</a></p>
+      {!isApproved ?
+          <div className='text-white text-center tracking-widest font-[300] uppercase'>
+            <p className="text-lg bg-black p-1">You need a pin!</p>
+            <p className="mt-8 bg-black p-1">Click the link below to claim your NFT</p>
+            <p className="mt-8 bg-black p-1 text-green-100"><a target="_blank" href="https://adamlevy.xyz/vault-collect-ethereum-or-polygon" rel="noreferrer">Mint Season 6 Listener Pin</a></p>
           </div>
-        </main>
-      }
-
-      {isApproved &&
-        <main className={styles.main}>
-          <h1 className={`${styles.title} pt-16 text-black`}>
-            Create NFTs using DALL·E 2
-          </h1>
-          {/* {message === 'true' ? */}
-            <GenerateImage setGeneratedImage={setGeneratedImage} />
-            {/* : <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>{message}{connected && !allowed && <span> Claim on <a target="_blank" className='text-indigo-500 cursor-pointer'>here</a></span>}</p>
-          } */}
+          :
+          <>
+          <GenerateImage setGeneratedImage={setGeneratedImage} />
           <div className='mt-8'>
-            {isConnected ?
+          {isConnected ?
 
-            generatedImage && <CreateNft generatedImage={generatedImage}/>
-            :
-            generatedImage && <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>Please Connect Your Wallet to Continue</p>
-            }
-          </div>
-        </main>
+          generatedImage && <CreateNft generatedImage={generatedImage}/>
+          :
+          generatedImage && <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>Please Connect Your Wallet to Continue</p>
+          }
+        </div>
+        </>
       }
+      </main>
 
       <footer className='py-8 border-t border-white'>
         <div>
