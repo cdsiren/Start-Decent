@@ -5,15 +5,13 @@ import styles from '../styles/Home.module.css';
 import Image from 'next/image';
 import CreateNft from '../components/CreateNft';
 import GenerateImage from '../components/GenerateImage';
-import { useNetwork } from 'wagmi';
+import { useNetwork, useAccount } from 'wagmi';
 import useTokenCheck from '../components/hooks/useTokenCheck';
 
 const Home: NextPage = () => {
   const [generatedImage, setGeneratedImage] = useState<any>(null);
   const { chain } = useNetwork();
-  const [connected, setConnected] = useState(false);
-  const [allowed, setAllowed] = useState(false);
-
+  const { address, isConnected } = useAccount();
   const isApproved = useTokenCheck();
 
   return (
@@ -27,7 +25,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/images/icon.png" />
       </Head>
 
-      {!isApproved &&
+      {isApproved &&
         <main className={styles.main}>
           <h1 className={`${styles.title} pt-16 text-black`}>
             Create NFTs using DALL·E 2
@@ -40,7 +38,7 @@ const Home: NextPage = () => {
         </main>
       }
 
-      {isApproved &&
+      {!isApproved &&
         <main className={styles.main}>
           <h1 className={`${styles.title} pt-16 text-black`}>
             Create NFTs using DALL·E 2
@@ -50,7 +48,7 @@ const Home: NextPage = () => {
             {/* : <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>{message}{connected && !allowed && <span> Claim on <a target="_blank" className='text-indigo-500 cursor-pointer'>here</a></span>}</p>
           } */}
           <div className='mt-8'>
-            {connected ?
+            {isConnected ?
 
             generatedImage && <CreateNft generatedImage={generatedImage}/>
             :
