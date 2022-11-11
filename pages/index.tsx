@@ -37,8 +37,8 @@ const Home: NextPage = () => {
         } */}
         <div className='mt-8'>
           {connected ?
-          // <CreateNft generatedImage={generatedImage}/>
-          generatedImage && <p>NFT Minting Coming Soon...</p>
+
+          generatedImage && <CreateNft generatedImage={generatedImage}/>
           :
           generatedImage && <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>Please Connect Your Wallet to Continue</p>
           }
