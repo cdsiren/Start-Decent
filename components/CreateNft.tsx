@@ -77,16 +77,14 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
           type: "application/json;charset=utf-8",
         });
 
-        // send metadta file to ipfs
+        // send metadata file to ipfs
         const client = new NFTStorage({ token: process.env.NEXT_PUBLIC_NFT_STORAGE_TOKEN || '' });
         const ipfs = await client.storeBlob(blob);
-        console.log(ipfs);
 
         const sdk = new DecentSDK(chain.id, signer);
         let nft;
 
         try {
-          console.log("deploying")
           nft = await edition.deploy(
             sdk,
             getValues("collectionName"), // name
@@ -106,7 +104,6 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
             null, // metadataRendererInit
             null, // tokenGateConfig
           );
-          console.log("deployed to: ", nft.address);
         } catch (error) {
           console.error(error);
         } finally {

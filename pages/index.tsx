@@ -5,12 +5,11 @@ import styles from '../styles/Home.module.css';
 import Image from 'next/image';
 import CreateNft from '../components/CreateNft';
 import GenerateImage from '../components/GenerateImage';
-import { useNetwork, useAccount } from 'wagmi';
+import { useAccount } from 'wagmi';
 import useTokenCheck from '../components/hooks/useTokenCheck';
 
 const Home: NextPage = () => {
   const [generatedImage, setGeneratedImage] = useState<any>(null);
-  const { chain } = useNetwork();
   const { address, isConnected } = useAccount();
   const isApproved = useTokenCheck();
 
@@ -30,9 +29,9 @@ const Home: NextPage = () => {
             Create NFTs using DALL·E 2
           </h1>
       {!isApproved ?
-          <div className='text-white text-center tracking-widest font-[300] uppercase'>
-            <p className="text-lg bg-black p-1">Early access for Pin holders.  General access available 11/14/22.</p>
-            <p className="mt-8 bg-black p-1">Click the link below to claim your Pin</p>
+          <div className='text-white text-center tracking-widest uppercase'>
+            <p className="text-xl bg-black p-1 font-[500]">Decent Innovation Pass Required.</p>
+            <p className="mt-8 bg-black p-1 font-[300]">Claim yours below.</p>
             <p className="mt-8 bg-black p-1 text-green-100"><a target="_blank" href="https://adamlevy.xyz/vault-collect-ethereum-or-polygon" rel="noreferrer">Mint Season 6 Listener Pin</a></p>
           </div>
           :
