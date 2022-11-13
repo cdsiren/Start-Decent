@@ -3,6 +3,7 @@ import { DecentSDK, edition } from "@decent.xyz/sdk";
 import { useSigner, useAccount } from "wagmi";
 import { ethers } from "ethers";
 
+// NOT IN USE CURRENTLY
 const useTokenCheck = () => {
   const { data:signer } = useSigner();
   const { address } = useAccount();
