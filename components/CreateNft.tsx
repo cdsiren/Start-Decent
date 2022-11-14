@@ -9,6 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import InfoField from "./InfoField";
 import Image from "next/image";
 import { NFTStorage, Blob } from 'nft.storage';
+import ShareSocials from "./ShareSocials";
 
 const schema = yup.object().shape({
   collectionName: yup.string()
@@ -17,6 +18,8 @@ const schema = yup.object().shape({
     .required('Give your collection a symbol.'),
   tokenPrice: yup.number()
     .typeError('Must set price for token. Please set to 0 if you wish for your NFTs to be free.'),
+  editionSize: yup.number()
+    .typeError('Must set collection quantity. Please set to 1 if you wish for this to be a 1 of 1.'),
   royalty: yup.lazy((value) => {
     return value === ''
       ? yup.string()
@@ -29,6 +32,7 @@ type FormData = {
   collectionName: string;
   symbol: string;
   tokenPrice: string;
+  editionSize: number;
   royalty: number;
 };
 
@@ -38,6 +42,7 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
 
   const [isHovering1, setIsHovering1] = useState(false);
   const [isHovering2, setIsHovering2] = useState(false);
+  const [isHovering3, setIsHovering3] = useState(false);
 
   const methods = useForm<FormData>({
     resolver: yupResolver(schema),
@@ -90,7 +95,7 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
             getValues("collectionName"), // name
             "DCNTAI", // symbol
             false, // hasAdjustableCap
-            1, // maxTokens
+            getValues("editionSize"), // maxTokens
             ethers.utils.parseEther(getValues("tokenPrice")), // tokenPrice
             1, // maxTokenPurchase
             null, // presaleMerkleRoot
@@ -120,7 +125,7 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
     }
   }
 
-  if (!generatedImage) return null
+  // if (!generatedImage) return null;
 
   return (
     <FormProvider {...methods}>
@@ -147,11 +152,20 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
             <p className="text-red-600 text-sm"><ErrorMessage errors={errors} name="tokenPrice" /></p>
           </div>
 
+          <div>
+            <div className="py-2 flex items-center gap-1">
+              <p className="font-header">Collection Quantity</p>
+              <InfoField isHovering={isHovering1} setIsHovering={setIsHovering2} xDirection={'left'} yDirection={'bottom'} infoText={"How many NFTs would you like for this collection to include?"} />
+            </div>
+            <input className="create-field" {...register("editionSize", {required: "Must set collection quantity. Please set to 1 if you wish for this to be a 1 of 1."} )} />
+            <p className="text-red-600 text-sm"><ErrorMessage errors={errors} name="editionSize" /></p>
+          </div>
+
           {/* Decent contracts support EIP 2981 */}
           <div>
             <div className="py-2 flex items-center gap-1">
               <p className="font-header">Creator Royalty (Optional)</p>
-              <InfoField isHovering={isHovering2} setIsHovering={setIsHovering2} xDirection={'left'} yDirection={'bottom'} infoText={"Please enter a percentage that you would like to receive from the value of every sale."} />
+              <InfoField isHovering={isHovering2} setIsHovering={setIsHovering3} xDirection={'left'} yDirection={'bottom'} infoText={"Please enter a percentage that you would like to receive from the value of every sale."} />
             </div>
             <div className="flex items-center w-fit text-black relative">
               <input
@@ -168,17 +182,12 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
             </button>
             {chain &&
             <>
-            <div className="italic text-xs pt-4 text-center py-2">{showLink ? <a target="_blank" className="px-3 py-1 bg-indigo-500 text-white text-lg" href={`https://hq.decent.xyz/${chain.id}/Editions/${link}`} rel="noreferrer">View on Decent</a> : 'be patient, wallet & block confimration can take a sec'}</div>
-            <a
-              className="text-white mt-2"
-              href={`https://twitter.com/intent/tweet?text=This NFT was made with AI by Decent x DALL·E 2 https://hq.decent.xyz/${chain.id}/Editions/${link}`}
-              target="_blank"
-              rel="noreferrer">
-              <span className="flex items-center justify-center bg-black gap-2 px-1 tracking-widest font-[400]">
-                Share NFT
-                <Image src='/images/twitter.png' height={14} width={14} alt="twitter"/>
-              </span>
-            </a>
+            <div className="text-xs pt-4 text-center py-2">{showLink ? 
+              <div className="space-y-4">
+              <a target="_blank" className="px-3 py-1 bg-indigo-500 text-white text-lg flex items-center" href={`https://hq.decent.xyz/${chain.id}/Editions/${link}`} rel="noreferrer">View on Decent</a>
+              <ShareSocials chain={chain} link={link} />
+              </div>
+              : <span className="italic">be patient, wallet & block confirmation can take a sec</span>}</div>
             </>
             }
           </div>
