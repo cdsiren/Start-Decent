@@ -42,10 +42,9 @@ const Home: NextPage = () => {
           <GenerateImage setGeneratedImage={setGeneratedImage} />
           <div className='mt-8'>
           {isConnected ?
-
-          generatedImage && <CreateNft generatedImage={generatedImage}/>
+          <CreateNft generatedImage={generatedImage}/>
           :
-          generatedImage && <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>Please Connect Your Wallet to Continue</p>
+          <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>Please Connect Your Wallet to Continue</p>
           }
         </div>
         {/* </>

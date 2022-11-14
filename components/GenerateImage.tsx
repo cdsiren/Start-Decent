@@ -33,7 +33,6 @@ const GenerateImage: React.FC<any> = ({ setGeneratedImage }) => {
     try {
         const res = await fetch(`/api/generate?prompt=${prompt}`)
         const data = await res.json();
-        console.log(data.image_url);
         setGeneratedImageUrl(data.image_url);
         setGeneratedImage(data.image_url);
         setIsLoading(false);
