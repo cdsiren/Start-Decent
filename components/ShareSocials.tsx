@@ -7,7 +7,7 @@ const ShareSocials = ({chain, link}:any) => {
   const Twitter = (
     <a
       className="text-white mt-2"
-      href={`https://twitter.com/intent/tweet?text=This NFT was made with AI by Decent x DALL·E 2 https://hq.decent.xyz/${chain.id}/Editions/${link}`}
+      href={`https://twitter.com/intent/tweet?text=This NFT was made with AI by @decentxyz x DALL·E 2 https://hq.decent.xyz/${chain.id}/Editions/${link}`}
       target="_blank"
       rel="noreferrer">
       <span className="flex items-center justify-center bg-black gap-2 px-3 py-2 tracking-widest font-[400]">
