@@ -1,16 +1,17 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from '../styles/Home.module.css';
 import Image from 'next/image';
 import CreateNft from '../components/CreateNft';
 import GenerateImage from '../components/GenerateImage';
 import { useAccount } from 'wagmi';
 import useTokenCheck from '../components/hooks/useTokenCheck';
+import CrescendoBuy from '../components/CrescendoBuy';
 
 const Home: NextPage = () => {
   const [generatedImage, setGeneratedImage] = useState<any>(null);
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const isApproved = useTokenCheck();
 
   return (
@@ -29,17 +30,15 @@ const Home: NextPage = () => {
             Create NFTs using DALL·E 2
           </h1>
       {!isApproved ?
-          <div className='text-white text-center tracking-widest uppercase'>
-            <p className="text-xl bg-black p-1 font-[500]">Decent Innovation Pass Required.</p>
-            <p className="mt-8 bg-black p-1 font-[300]">Claim yours below.</p>
-            <p className="mt-8 bg-black p-1 text-green-100"><a target="_blank" href="https://adamlevy.xyz/vault-collect-ethereum-or-polygon" rel="noreferrer">Mint Season 6 Listener Pin</a></p>
+          <div className='text-white text-center tracking-widest uppercase space-y-8'>
+            <p className="text-xl bg-black p-1 font-[500]">Decent Innovation Pass Required.</p> 
+            <CrescendoBuy />
           </div>
           :
           <>
           <GenerateImage setGeneratedImage={setGeneratedImage} />
           <div className='mt-8'>
           {isConnected ?
-
           generatedImage && <CreateNft generatedImage={generatedImage}/>
           :
           generatedImage && <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>Please Connect Your Wallet to Continue</p>
