@@ -12,7 +12,14 @@ const Home: NextPage = () => {
   const [generatedImage, setGeneratedImage] = useState<any>(null);
   // const { chain } = useNetwork();
   const { address, isConnected } = useAccount();
+  const [wallet, setWallet] = useState(false);
+  const [connected, setConnected] = useState(false);
   // const isApproved = useTokenCheck();
+
+  useEffect(() => {
+    address && setWallet(true);
+    isConnected && setConnected(true);
+  }, [address, isConnected])
 
   return (
     <div className={`${styles.container} background`}>
@@ -41,7 +48,7 @@ const Home: NextPage = () => {
           <> */}
           <GenerateImage setGeneratedImage={setGeneratedImage} />
           <div className='mt-8'>
-          {isConnected ?
+          {connected ?
           <CreateNft generatedImage={generatedImage}/>
           :
           <p className='bg-black p-1 tracking-widest uppercase text-sm font-[400]'>Please Connect Your Wallet to Continue</p>
