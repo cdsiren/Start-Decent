@@ -70,7 +70,6 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
           url: generatedImage,
         }))
         const resData = await res.json();
-        console.log("IPFS response is CID?", resData)
         // create metadata
         const metadata = {
           description: 'Created with the Decent Protocol and DALL·E 2',
@@ -78,7 +77,6 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
           name: getValues("collectionName"),
           animation_url: "",
         }
-        console.log("metadata", metadata)
         // build metadata json file
         const data = JSON.stringify(metadata, null, 2);
         const bytes = new TextEncoder().encode(data);
