@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 const getHostedFile = async (httpsUri: string) => {
   const response = await fetch(httpsUri);
   const blob = await response.blob();
