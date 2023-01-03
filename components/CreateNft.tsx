@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
-import { DecentSDK, edition, ipfs } from '@decent.xyz/sdk'; //Note: not using ipfs in demo
+import { DecentSDK, edition } from '@decent.xyz/sdk'; //Note: not using ipfs in demo
 import { useSigner, useNetwork } from 'wagmi';
 import { ethers } from "ethers";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InfoField from "./InfoField";
-import Image from "next/image";
 import { NFTStorage, Blob } from 'nft.storage';
 import ShareSocials from "./ShareSocials";
 
