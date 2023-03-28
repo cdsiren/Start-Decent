@@ -7,7 +7,6 @@ import { ethers } from "ethers";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import InfoField from "./InfoField";
-import Image from "next/image";
 import { NFTStorage, Blob } from 'nft.storage';
 import ShareSocials from "./ShareSocials";
 
@@ -69,7 +68,7 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
       } else if (chain) {
         // create metadata
         const metadata = {
-          description: 'Created with the Decent Protocol and DALL·E 2',
+          description: 'Created with the Decent Protocol and DALL·E 2.  Create yours here: ai.decent.xyz!',
           image: generatedImage,
           name: getValues("collectionName"),
           animation_url: generatedImage,
@@ -95,19 +94,24 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
             getValues("collectionName"), // name
             "DCNTAI", // symbol
             false, // hasAdjustableCap
+            false, // isSoulBound
             getValues("editionSize"), // maxTokens
             ethers.utils.parseEther(getValues("tokenPrice")), // tokenPrice
-            1, // maxTokenPurchase
+            100, // maxTokenPurchase
             null, // presaleMerkleRoot
             0, // presaleStart
             0, // presaleEnd
             0, // saleStart
             Math.floor((new Date()).getTime() / 1000 + (60 * 60 * 24 * 365)), // saleEnd = 1 year
             getValues("royalty") * 100, // royaltyBPS
+            ethers.constants.AddressZero, // payoutAddress (if not owner)
             `ipfs://${ipfs}?`, // contractURI
             `ipfs://${ipfs}?`, // metadataURI
             null, // metadataRendererInit
             null, // tokenGateConfig
+            (pending: any) => { console.log("Pending nonce: ", pending.nonce) },
+            (receipt: any) => { console.log("Receipt block: ", receipt.blockNumber) },
+            undefined, //parentIP
           );
         } catch (error) {
           console.error(error);
