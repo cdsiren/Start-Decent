@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { ErrorMessage } from '@hookform/error-message';
-import { DecentSDK, edition, ipfs } from '@decent.xyz/sdk'; //Note: not using ipfs in demo
+import { DecentSDK, edition } from '@decent.xyz/sdk'; //Note: not using ipfs in demo
 import { useSigner, useNetwork } from 'wagmi';
 import { ethers } from "ethers";
 import * as yup from "yup";
@@ -38,7 +38,7 @@ type FormData = {
 const CreateNft: React.FC<any> = ({ generatedImage }) => {
   const { data: signer } = useSigner();
   const { chain } = useNetwork();
-
+  
   const [isHovering1, setIsHovering1] = useState(false);
   const [isHovering2, setIsHovering2] = useState(false);
   const [isHovering3, setIsHovering3] = useState(false);
@@ -66,14 +66,17 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
       if (!signer) {
         console.error("Please connect wallet.")
       } else if (chain) {
+        const res = await fetch(`/api/ipfs?` + new URLSearchParams({
+          url: generatedImage,
+        }))
+        const resData = await res.json();
         // create metadata
         const metadata = {
           description: 'Created with the Decent Protocol and DALL·E 2.  Create yours here: ai.decent.xyz!',
           image: generatedImage,
           name: getValues("collectionName"),
-          animation_url: generatedImage,
+          animation_url: "",
         }
-
         // build metadata json file
         const data = JSON.stringify(metadata, null, 2);
         const bytes = new TextEncoder().encode(data);
