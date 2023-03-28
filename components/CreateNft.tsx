@@ -75,7 +75,7 @@ const CreateNft: React.FC<any> = ({ generatedImage }) => {
           description: 'Created with the Decent Protocol and DALL·E 2.  Create yours here: ai.decent.xyz!',
           image: generatedImage,
           name: getValues("collectionName"),
-          animation_url: "",
+          animation_url: null,
         }
         // build metadata json file
         const data = JSON.stringify(metadata, null, 2);
